@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
 use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -12,7 +12,8 @@ class PostController extends Controller
     // get all posts
     public function index()
     {
-        $posts = Post::paginate();
+        $posts = Post::orderBy('id', 'desc')->paginate();
+
         return view("posts.index", ['posts' => $posts]);
     }
 
@@ -25,7 +26,8 @@ class PostController extends Controller
 
     public function create()
     {
-        return view("posts.add");
+        $users = User::select('id','name')->get();
+        return view("posts.add", compact('users'));
     }
 
     // edit a specific post
@@ -65,8 +67,11 @@ class PostController extends Controller
        $post->title = $request->title;
        $post->description = $request->description;
        $post->user_id = $request->user_id;
-       $post->save();
+       $image = $request->file('image')->store('public');
+       $post->image = str_replace('public/', '', $image); // Only save filename
 
+
+       $post->save();
        return back()->with('success', 'Post Added Successfully.');
 
     }

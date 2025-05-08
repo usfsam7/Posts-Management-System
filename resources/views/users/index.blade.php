@@ -8,8 +8,8 @@
    <div class="container">
     <div class="row">
          <div class="col-12">
-            <a href="{{ url('posts/create') }}" class="btn btn btn-primary my-3">Add new post</a>
-           <h1 class="p-3 border text-center my-3">Posts</h1>
+            <a href="{{ route('users.create') }}" class="btn btn btn-primary my-3">Add new User</a>
+           <h1 class="p-3 border text-center my-3">Users</h1>
          </div>
 
 
@@ -22,38 +22,31 @@
                 <thead>
                        <tr>
                         <th>#</th>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Author</th>
-                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Type</th>
                         <th>Edit</th>
+                        <th>Posts</th>
                         <th>Delete</th>
                        </tr>
                 </thead>
                 <tbody>
-                @foreach ($posts as $post)
+                @foreach ($users as $user)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $post->title }} </td>
-                        <td>{{ $post->description }}</td>
-                        <td>{{ $post->user->name  }}</td>
-
-
-                  @if (!$post->image)
-                          <td>No Image For This Post</td>
-                  @else
-                          <td>
-                             <img src="{{ asset('storage/' . $post->image) }}" height="100" width="100">
-                          </td>
-                  @endif
-
-                           <td>
-                            <a href="{{url('posts/'. $post->id . '/edit')}}" class="btn btn btn-info">Edit</a>
+                        <td>{{ $user->name }} </td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->type  }}</td>
+                        <td>
+                            <a href="{{url('users/'. $user->id . '/edit')}}" class="btn btn btn-info">Edit</a>
 
                         </td>
-
                         <td>
-                            <form action="{{ url('posts/' . $post->id) }}" method="POST">
+                            <a href="{{route('user.posts', $user->id)}}" class="btn btn btn-primary">Posts</a>
+
+                        </td>
+                        <td>
+                            <form action="{{ url('users/' . $user->id) }}" method="POST">
                                 @method('DELETE')
                                 @csrf
                                 <input type="submit" value="Delete" class="btn btn-danger">
@@ -64,7 +57,7 @@
                 </tbody>
             </table>
             <div>
-                {{ $posts->links() }}
+                {{ $users->links() }}
             </div>
          </div>
     </div>

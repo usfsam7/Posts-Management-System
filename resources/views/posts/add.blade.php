@@ -12,7 +12,7 @@
 
 
          <div class="col-8 mx-auto">
-            <form action="{{ url('posts') }}" method="POST" class="form border p-3">
+            <form action="{{ url('posts') }}" method="POST" class="form border p-3" enctype="multipart/form-data" >
               @csrf
               @if ($errors->any())
               <div class="alert alert-danger p-1">
@@ -38,9 +38,16 @@
             <div class="mb-3">
                 <label for=""> author</label>
                 <select name="user_id" class="form-control">
-                    <option value="1">usf</option>
-                    <option value="2">ahmed</option>
+                    @foreach ($users as $user )
+                       <option value="{{ $user->id }}"> {{ $user->name }}</option>
+                    @endforeach
+
                 </select>
+                <div class="mb-3">
+                <label for=""> Image</label>
+                <input type="file" name="image" class="form-control" >
+
+            </div>
             </div>
             <div class="mb-3">
                <input type="submit" value="Save" class="form-control bg-success">

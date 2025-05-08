@@ -21,7 +21,11 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ url('posts') }}">Posts</a>
-
+            </li>
+ 
+            <li class="nav-item">
+          <a class="nav-link" href="{{ route('users.index') }}">Users</a>
+            </li>
       </ul>
       <form class="d-flex" action="{{ url('posts/search') }}" method="GET " role="search">
         <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search">

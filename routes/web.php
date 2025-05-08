@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -10,6 +11,9 @@ Route::get('posts', function () {
     return view('index');
 });
 
+Route::get('users', function () {
+    return view('users.index');
+});
 
 Route::get('/home', function () {
     return view('home');
@@ -28,3 +32,5 @@ Route::delete('posts/{id}/', [PostController::class, 'destroy']);
 
 Route::get('/', [PostController::class, 'home']);
 
+Route::resource('users', UserController::class);
+Route::get('user/{id}/posts', [UserController::class, 'posts'])->name('user.posts');
