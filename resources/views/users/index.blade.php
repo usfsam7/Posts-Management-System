@@ -8,7 +8,9 @@
    <div class="container">
     <div class="row">
          <div class="col-12">
-            <a href="{{ route('users.create') }}" class="btn btn btn-primary my-3">Add new User</a>
+           @can('create-post')
+             <a href="{{ route('users.create') }}" class="btn btn btn-primary my-3">Add new User</a>
+           @endcan
            <h1 class="p-3 border text-center my-3">Users</h1>
          </div>
 

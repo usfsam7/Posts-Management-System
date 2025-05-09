@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
+use Gate;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -19,13 +20,14 @@ class PostController extends Controller
 
     public function home()
     {
-        $posts = Post::paginate();
+        $posts = Post::orderBy('id', 'desc')->paginate();
         return view("home", ['posts' => $posts]);
     }
 
 
     public function create()
     {
+        Gate::authorize('create-post');
         $users = User::select('id','name')->get();
         return view("posts.add", compact('users'));
     }
@@ -62,7 +64,7 @@ class PostController extends Controller
     // create a new post
     public function store(StorePostRequest $request)
     {
-
+       Gate::authorize('create-post');
        $post= new Post();
        $post->title = $request->title;
        $post->description = $request->description;

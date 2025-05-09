@@ -8,7 +8,10 @@
    <div class="container">
     <div class="row">
          <div class="col-12">
-            <a href="{{ url('posts/create') }}" class="btn btn btn-primary my-3">Add new post</a>
+            @can('create-post')
+              <a href="{{ url('posts/create') }}" class="btn btn btn-primary my-3">Add new post</a>
+            @endcan
+
            <h1 class="p-3 border text-center my-3">Posts</h1>
          </div>
 
