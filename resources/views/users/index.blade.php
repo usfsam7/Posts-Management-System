@@ -8,9 +8,10 @@
    <div class="container">
     <div class="row">
          <div class="col-12">
-           @can('create-post')
+            @can('create', \App\Models\User::class)
              <a href="{{ route('users.create') }}" class="btn btn btn-primary my-3">Add new User</a>
-           @endcan
+            @endcan
+
            <h1 class="p-3 border text-center my-3">Users</h1>
          </div>
 
@@ -39,14 +40,18 @@
                         <td>{{ $user->name }} </td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->type  }}</td>
-                        <td>
-                            <a href="{{url('users/'. $user->id . '/edit')}}" class="btn btn btn-info">Edit</a>
 
-                        </td>
-                        <td>
+
+                         <td>
                             <a href="{{route('user.posts', $user->id)}}" class="btn btn btn-primary">Posts</a>
 
                         </td>
+
+                  <td>
+
+                            <a href="{{url('users/'. $user->id . '/edit')}}" class="btn btn btn-info">Edit</a>
+                       
+                  </td>
                         <td>
                             <form action="{{ url('users/' . $user->id) }}" method="POST">
                                 @method('DELETE')

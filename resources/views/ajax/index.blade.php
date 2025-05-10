@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-12">
               @can('create', \App\Models\Post::class)
-                  <a href="{{ url('posts/create') }}" class="btn btn btn-primary my-3">Add new post</a>
+                  <a href="{{ url('ajax/create') }}" class="btn btn btn-primary my-3">Add new post with ajax</a>
               @endcan
 
 

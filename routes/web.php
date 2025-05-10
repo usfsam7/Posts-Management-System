@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\AJaxController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,8 @@ Route::middleware('auth')->group(function ()
     Route::get('/', [PostController::class, 'home']);
     Route::get('user/{id}/posts', [UserController::class, 'posts'])->name('user.posts');
     Route::resource('users', UserController::class);
+
+        Route::resource('ajax', AJaxController::class);
 
  });
 

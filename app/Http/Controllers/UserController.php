@@ -9,6 +9,8 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      */
@@ -62,7 +64,6 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        $user = User::findOrFail($id);
         return view("users.edit", compact('user'));
     }
 

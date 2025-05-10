@@ -28,9 +28,15 @@
             <li class="nav-item">
             <a class="nav-link" href="{{ url('posts') }}">Posts</a>
           </li>
-          <li class="nav-item">
+
+            <li class="nav-item">
             <a class="nav-link" href="{{ route('users.index') }}">Users</a>
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('ajax.index') }}">AJax Posts</a>
+          </li>
+
           @endauth
 
 
@@ -53,7 +59,7 @@
         <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
         </li>
         @endif
-      @else
+        @else
         <li class="nav-item dropdown">
         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false" v-pre>
@@ -88,6 +94,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
     crossorigin="anonymous"></script>
+
+    @yield('script')
 </body>
 
 </html>

@@ -7,7 +7,7 @@ use App\Models\Post;
 use Gate;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class AJaxController extends Controller
 {
 
     // get all posts
@@ -15,7 +15,7 @@ class PostController extends Controller
     {
         $posts = Post::orderBy('id', 'desc')->paginate();
 
-        return view("posts.index", ['posts' => $posts]);
+        return view("ajax.index", ['posts' => $posts]);
     }
 
     public function home()
@@ -29,7 +29,7 @@ class PostController extends Controller
     {
 
         $users = User::select('id','name')->get();
-        return view("posts.add", compact('users'));
+        return view("ajax.add", compact('users'));
     }
 
     // edit a specific post
@@ -37,14 +37,14 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         Gate::authorize('view', $post);
-        return view("posts.edit", ['post' => $post]);
+        return view("ajax.edit", ['post' => $post]);
     }
 
 
     public function show($id)
     {
         $post = Post::findOrFail($id);
-        return view("posts.show", ['post' => $post]);
+        return view("ajax.show", ['post' => $post]);
     }
 
 
@@ -94,7 +94,7 @@ class PostController extends Controller
         $posts = Post::Where('description','like','%'.$q.'%')->
         get();
 
-        return view('posts.search', ['posts' => $posts]);
+        return view('ajax.search', ['posts' => $posts]);
     }
 
 }
