@@ -30,10 +30,17 @@
                             <a class="nav-link" href="{{ url('posts') }}">Posts</a>
                         </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('users.index') }}">Users</a>
-                            </li>
-                     
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('users.index') }}">Users</a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('ajax.index') }}">Ajax-Posts</a>
+                        </li>
+
+                         <li class="nav-item">
+                            <a class="nav-link" href="{{ url('contact') }}">Contact</a>
+                        </li>
 
                     @endauth
 
@@ -64,7 +71,7 @@
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                 document.getElementById('logout-form').submit();">
+                                     document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
 

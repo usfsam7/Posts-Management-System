@@ -29,7 +29,8 @@ class PostPolicy
      */
     public function create(User $user): bool
     {
-        return $user->type == 'author';
+        // return $user->type == 'author';
+        return false;
     }
 
     /**

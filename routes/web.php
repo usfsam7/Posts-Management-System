@@ -3,6 +3,7 @@ use App\Http\Controllers\AJaxController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
     return view('home');
@@ -20,10 +21,15 @@ Route::get('/home', function () {
     return view('home');
 });
 
-Route::get('posts/search', [PostController::class,'search']);
+Route::get('contact', function () {
+    return view('contact.index');
+});
 
-Route::middleware('auth')->group(function ()
- {
+
+
+Route::get('posts/search', [PostController::class, 'search']);
+
+Route::middleware('auth')->group(function () {
 
     Route::get('posts', [PostController::class, 'index'])->name('posts');
     Route::get('posts/create', [PostController::class, 'create']);
@@ -39,9 +45,13 @@ Route::middleware('auth')->group(function ()
     Route::get('user/{id}/posts', [UserController::class, 'posts'])->name('user.posts');
     Route::resource('users', UserController::class);
 
-        Route::resource('ajax', AJaxController::class);
+    Route::resource('ajax', AJaxController::class);
+    Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
- });
+  
+
+
+});
 
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Gate;
 use Illuminate\Http\Request;
 
@@ -13,22 +14,23 @@ class PostController extends Controller
     // get all posts
     public function index()
     {
-        $posts = Post::orderBy('id', 'desc')->paginate();
+        $posts = Post::with('user')->orderBy('id', 'desc')->paginate();
 
         return view("posts.index", ['posts' => $posts]);
     }
 
     public function home()
     {
-        $posts = Post::orderBy('id', 'desc')->paginate();
-        return view("home", ['posts' => $posts]);
+        $posts = Post::with('user')->orderBy('id', 'desc')->paginate();
+
+        return view("home", compact('posts'));
     }
 
 
     public function create()
     {
 
-        $users = User::select('id','name')->get();
+        $users = User::select('id', 'name')->get();
         return view("posts.add", compact('users'));
     }
 
@@ -50,13 +52,13 @@ class PostController extends Controller
 
     public function update(Request $request, $id)
     {
-       $post = Post::findOrFail($id);
-       $post->title = $request->title;
-       $post->description = $request->description;
-       $post->user_id = $request->user_id;
-       $post->save();
+        $post = Post::findOrFail($id);
+        $post->title = $request->title;
+        $post->description = $request->description;
+        $post->user_id = $request->user_id;
+        $post->save();
 
-       return redirect()->route('posts')->with('success', 'Post Updated Successfully.');
+        return redirect()->route('posts')->with('success', 'Post Updated Successfully.');
 
     }
 
@@ -64,16 +66,16 @@ class PostController extends Controller
     // create a new post
     public function store(StorePostRequest $request)
     {
-       $post= new Post();
-       $post->title = $request->title;
-       $post->description = $request->description;
-       $post->user_id = $request->user_id;
-       $image = $request->file('image')->store('public');
-       $post->image = str_replace('public/', '', $image); // Only save filename
+        $post = new Post();
+        $post->title = $request->title;
+        $post->description = $request->description;
+        $post->user_id = $request->user_id;
+        $image = $request->file('image')->store('public');
+        $post->image = str_replace('public/', '', $image); // Only save filename
 
 
-       $post->save();
-       return back()->with('success', 'Post Added Successfully.');
+        $post->save();
+        return back()->with('success', 'Post Added Successfully.');
 
     }
 
@@ -81,18 +83,18 @@ class PostController extends Controller
     // delete a specific post
     public function destroy($id)
     {
-         $post = Post::findOrFail($id);
-         $post->delete();
+        $post = Post::findOrFail($id);
+        $post->delete();
 
-         return back()->with('success', 'Post Deleted Successfully.');
+        return back()->with('success', 'Post Deleted Successfully.');
     }
 
 
     public function search(Request $request)
     {
         $q = $request->q;
-        $posts = Post::Where('description','like','%'.$q.'%')->
-        get();
+        $posts = Post::Where('description', 'like', '%' . $q . '%')->
+            get();
 
         return view('posts.search', ['posts' => $posts]);
     }

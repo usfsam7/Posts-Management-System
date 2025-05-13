@@ -13,14 +13,14 @@ class AJaxController extends Controller
     // get all posts
     public function index()
     {
-        $posts = Post::orderBy('id', 'desc')->paginate();
+        $posts = Post::with('user')->orderBy('id', 'desc')->paginate();
 
         return view("ajax.index", ['posts' => $posts]);
     }
 
     public function home()
     {
-        $posts = Post::orderBy('id', 'desc')->paginate();
+        $posts = Post::with('user')->orderBy('id', 'desc')->paginate();
         return view("home", ['posts' => $posts]);
     }
 

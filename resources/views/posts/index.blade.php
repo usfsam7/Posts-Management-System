@@ -42,6 +42,7 @@
                                 <td>{{ $post->title }} </td>
                                 <td>{{ $post->description }}</td>
                                 <td>{{ $post->user->name  }}</td>
+                               
 
 
                                 @if (!$post->image)
