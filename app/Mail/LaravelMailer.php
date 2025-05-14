@@ -30,6 +30,7 @@ class LaravelMailer extends Mailable
     {
         return new Envelope(
             subject: 'Laravel Mailer',
+            from: 'yousameh2006@gmail.com',
         );
     }
 
