@@ -29,6 +29,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,7 +55,9 @@
         }
 
         /* Form elements styling */
-        input, textarea, button {
+        input,
+        textarea,
+        button {
             display: block;
             width: 100%;
             padding: 0.75rem;
@@ -64,7 +67,8 @@
             font-size: 1rem;
         }
 
-        input, textarea {
+        input,
+        textarea {
             background-color: #222;
             color: #fff;
         }
@@ -96,7 +100,17 @@
         }
     </style>
 </head>
+
 <body>
+    @if ($errors->any())
+        <div class="alert alert-danger p-1 text-center">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form action="{{ url('contact') }}" method="POST">
         @if(session('success'))
             <div class="success-message">
@@ -111,4 +125,5 @@
         <button type="submit">Send</button>
     </form>
 </body>
+
 </html>
