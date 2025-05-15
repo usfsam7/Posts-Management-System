@@ -32,6 +32,7 @@ Route::get('posts/search', [PostController::class, 'search']);
 Route::middleware('auth')->group(function () {
 
     Route::get('posts', [PostController::class, 'index'])->name('posts');
+    Route::get('posts/export', [PostController::class, 'export'])->name('posts.export');
     Route::get('posts/create', [PostController::class, 'create']);
     Route::post('posts ', [PostController::class, 'store']);
     Route::get('posts/{id}', [PostController::class, 'show']);
@@ -48,7 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('ajax', AJaxController::class);
     Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
-  
+
 
 
 });

@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Exports\PostExport;
 use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Gate;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -18,6 +22,26 @@ class PostController extends Controller
 
         return view("posts.index", ['posts' => $posts]);
     }
+
+    public function export()
+    {
+
+        try{
+            
+            $posts = Post::all();
+            $pdf = Pdf::loadView('exports.posts', [
+            'posts' => $posts
+        ]);
+
+            return $pdf->download('posts.pdf');
+
+           // return Excel::download(new PostExport(), 'posts.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+        } catch (\Exception $e) {
+           return redirect()->back()->with('error', $e->getMessage());
+        }
+
+    }
+
 
     public function home()
     {
